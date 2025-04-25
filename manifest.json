@@ -1,11 +1,11 @@
 {
-  "name": "ShopEasy",
-  "short_name": "ShopEasy",
-  "description": "Your easy-to-use online store",
+  "name": "TechBazaar",
+  "short_name": "TechBazaar",
+  "description": "Smart shopping for tech products",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4285f4",
+  "background_color": "#f8f8f8",
+  "theme_color": "#7E57C2",
   "icons": [
     {
       "src": "images/shop_icon192.png",
