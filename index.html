@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopEasy PWA</title>
+    <title>Tech Mart PWA</title>
     <meta name="description" content="Shop the latest products with our easy to use online store">
     <meta name="theme-color" content="#4285f4">
     <link rel="manifest" href="manifest.json">
@@ -22,7 +22,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">ShopEasy</div>
+            <div class="logo">Tech Mart</div>
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
                 <li><a href="#">Products</a></li>
@@ -40,11 +40,11 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1>Shop Smart, Shop Easy</h1>
+                <h1>Shop Smart, Tech Mart</h1>
                 <p>Discover amazing products at incredible prices</p>
                 <button class="cta-button">Shop Now</button>
                 <div id="install-banner" class="install-banner hidden">
-                    <p>Add ShopEasy to your home screen!</p>
+                    <p>Add Tech Mart to your home screen!</p>
                     <button id="install-button">Install</button>
                     <button id="dismiss-button">Dismiss</button>
                 </div>
@@ -93,7 +93,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>ShopEasy</h3>
+                <h3>Tech Mart</h3>
                 <p>Your one-stop shop for all your needs.</p>
             </div>
             <div class="footer-section">
@@ -107,12 +107,12 @@
             </div>
             <div class="footer-section">
                 <h3>Contact Us</h3>
-                <p>Email: info@shopeasy.com</p>
+                <p>Email: info@Tech Mart.com</p>
                 <p>Phone: (555) 123-4567</p>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2025 ShopEasy. All rights reserved.</p>
+            <p>&copy; 2025 Tech Mart. All rights reserved.</p>
         </div>
     </footer>
     <script>
@@ -123,6 +123,70 @@
         }
     </script>
     <script src="app.js"></script>
+    
+    <!-- Add to Cart Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart
+            let cartCount = 0;
+            const cartCountElement = document.querySelector('.cart-count');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            
+            // Add click event to all "Add to Cart" buttons
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Get product info
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('h3').textContent;
+                    const productPrice = productCard.querySelector('.price').textContent;
+                    
+                    // Update cart count
+                    cartCount++;
+                    cartCountElement.textContent = cartCount;
+                    
+                    // Visual feedback
+                    this.textContent = 'Added to Cart!';
+                    this.style.backgroundColor = '#4CAF50';
+                    
+                    // Reset button after delay
+                    setTimeout(() => {
+                        this.textContent = 'Add to Cart';
+                        this.style.backgroundColor = '';
+                    }, 1500);
+                    
+                    // Log the action (can be replaced with actual cart storage)
+                    console.log(`Added to cart: ${productName} - ${productPrice}`);
+                    
+                    // Optional: Store in localStorage
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+                    cartItems.push({
+                        name: productName,
+                        price: productPrice,
+                        date: new Date().toISOString()
+                    });
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                });
+            });
+            
+            // Load cart count from localStorage on page load
+            const savedItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            if (savedItems.length > 0) {
+                cartCount = savedItems.length;
+                cartCountElement.textContent = cartCount;
+            }
+            
+            // Add click event to cart icon to show items (optional feature)
+            document.querySelector('.cart').addEventListener('click', function() {
+                const items = JSON.parse(localStorage.getItem('cartItems') || '[]');
+                if (items.length === 0) {
+                    alert('Your cart is empty');
+                } else {
+                    alert(`You have ${items.length} items in your cart`);
+                    // In a real app, you would show a cart modal or navigate to cart page
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
